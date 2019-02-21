@@ -103,8 +103,7 @@ if (Test-Path -path $TmpImage) {Remove-Item -Path $TmpImage -Force}
 if (Test-Path -path $TmpWinREImage) {Remove-Item -Path $TmpWinREImage -Force}
 
 # Mount index 2 of the Windows 10 boot image (boot.wim)
-Copy-Item "$ISODrive\Sources\boot.wim" $WIMImageFolder
-Attrib -r $BootImage 
+Copy-Item "$ISODrive\Sources\boot.wim" $WIMImageFolder -PassThru | Set-ItemProperty -name isreadonly -Value $false
 Mount-WindowsImage -ImagePath $BootImage -Index 2 -Path $BootImageMountFolder
 
 # Add the Updates to the boot image
